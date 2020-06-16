@@ -47,6 +47,8 @@
                     <td>Username</td>
                     <td>First Name</td>
                     <td>Last Name</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
                 </tr>
                 {% if users %}
                     {% for i in users %}
@@ -54,6 +56,18 @@
                             <td>{{ i.username }}</td>
                             <td>{{ i.firstName }}</td>
                             <td>{{ i.lastName }}</td>
+                            <td>
+                                <form action="{% url 'SimpleForm:edit' i.username %}"><input
+                                        class="btn btn-warning"
+                                        type="submit" value="Edit"/>
+                                </form>
+                            </td>
+                            <td>
+{#                                <form action="{% url 'HealthNet:cancelAppt' i.username %}"><input#}
+{#                                        class="btn btn-warning"#}
+{#                                        type="submit" value="Cancel"/>#}
+{#                                </form>#}
+                            </td>
                         </tr>
                     {% endfor %}
                 {% endif %}

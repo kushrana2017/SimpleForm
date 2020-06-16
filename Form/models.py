@@ -3,6 +3,7 @@ from django.db import models
 from datetime import date
 
 class Account(models.Model):
+    aid = models.CharField(max_length=50, default='')
     firstName = models.CharField(max_length=50, default='')
     lastName = models.CharField(max_length=50, default='')
     number = models.CharField(max_length=13, default='')

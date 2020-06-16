@@ -47,14 +47,13 @@
             </div>
         </div>
 
-        <form  name = 'register' action="{% url 'SimpleForm:createPLogIn' %}" method="post" >
+        <form  name = 'register' action="{% url 'SimpleForm:updateP' %}" method="post" >
             {% csrf_token %}
             <div class="panel panel-primary setup-content" id="step-1">
                 <div class="panel-heading">
                      <h3 class="panel-title">Personal Information</h3>
                 </div>
                 <div class="panel-body">
-                    {% if user %}
                     <div class="form-group">
                         <label class="control-label">First Name</label>
                         <input maxlength="100" type="text" required="required" class="form-control" name="firstName" placeholder="Enter First Name" />
@@ -78,37 +77,6 @@
                         <label class="control-label">Contact No.</label>
                         <input maxlength="100" type="text" name="number" required="required" class="form-control" placeholder="Enter Contact No " />
                     </div>
-                    {% else %}
-                    <div class="panel-heading">
-                     <h3 class="panel-title">Personal Information</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="control-label">First Name</label>
-                        <input maxlength="100" type="text" required="required" class="form-control" name="firstName" placeholder="Enter First Name" value="{{ user.firstName }}"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label">Last Name</label>
-                        <input maxlength="100" type="text" required="required" class="form-control" name="lastName" placeholder="Enter Last Name" value="{{ user.lastName }}"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label">Address</label>
-                        <input maxlength="100" type="address" required="required" class="form-control" name="address" placeholder="Enter Address" value="{{ user.paddress }}"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label">Email</label>
-                        <input maxlength="100" type="Email" name="email" required="required" class="form-control" placeholder="Enter The Email" value="{{ user.email }}"/>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Contact No.</label>
-                        <input maxlength="100" type="text" name="number" required="required" class="form-control" placeholder="Enter Contact No " value="{{ user.number }}"/>
-                    </div>
-                    {% endif %}
-
-
                     <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
                 </div>
             </div>
