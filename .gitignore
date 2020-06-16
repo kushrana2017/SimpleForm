@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+venv
+.idea/.gitignore
+.idea/SimpleForm.iml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+db.sqlite3
+venv/
