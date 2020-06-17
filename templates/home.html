@@ -57,16 +57,16 @@
                             <td>{{ i.firstName }}</td>
                             <td>{{ i.lastName }}</td>
                             <td>
-                                <form action="{% url 'SimpleForm:edit' i.username %}"><input
+                                <form action="{% url 'SimpleForm:edit' i.aid %}"><input
                                         class="btn btn-warning"
                                         type="submit" value="Edit"/>
                                 </form>
                             </td>
                             <td>
-{#                                <form action="{% url 'HealthNet:cancelAppt' i.username %}"><input#}
-{#                                        class="btn btn-warning"#}
-{#                                        type="submit" value="Cancel"/>#}
-{#                                </form>#}
+                                <form action="{% url 'SimpleForm:delete' i.aid %}"><input
+                                        class="btn btn-warning"
+                                        type="submit" value="Delete"/>
+                                </form>
                             </td>
                         </tr>
                     {% endfor %}

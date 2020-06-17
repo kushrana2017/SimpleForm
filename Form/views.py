@@ -53,7 +53,7 @@ def createPLogIn(request):
         LogInInfo.objects.create(username=username, password=password)
         global uname
         uname = username
-        at = Account.objects.latest()
+        at = Account.objects.latest('aid')
         a_id = str(int(at.aid) + 1)
         Account.objects.create(aid=a_id, username=username, firstName=firstName, lastName=lastName, paddress=paddress,
                                number=number, email=email)
@@ -66,31 +66,32 @@ def createPLogIn(request):
         })
 
 
-def updateP(request):
+def updateP(request, a_id):
     firstName = (request.POST['firstName'])
     lastName = (request.POST['lastName'])
     paddress = (request.POST['address'])
     number = (request.POST['number'])
     email = (request.POST['email'])
-    username = (request.POST['username'])
     password = (request.POST['password'])
-
+    at = Account.objects.get(aid=a_id)
+    username = at.username
     try:
         logininfo = LogInInfo.objects.get(username=username)
     except ObjectDoesNotExist:
-        LogInInfo.objects.create(username=username, password=password)
-        global uname
-        uname = username
-
-        at = Account.objects.get(username=username)
-        Account.objects.update(firstName=firstName, lastName=lastName, paddress=paddress, number=number, email=email)
-
-        return HttpResponseRedirect(reverse('SimpleForm:index', args=()))
-    else:
         return render(request, 'updateP.html', {
             'username': username,
             'error_message': "Username already exists.",
         })
+    else:
+        logininfo.password = password
+        logininfo.save()
+        at.firstName = firstName
+        at.lastName = lastName
+        at.paddress = paddress
+        at.email = email
+        at.number = number
+        at.save()
+        return HttpResponseRedirect(reverse('SimpleForm:home', args=()))
 
 
 # This module simply renders the HTML page for the password change screen.
@@ -151,14 +152,24 @@ def home(request):
         return HttpResponseRedirect(reverse('SimpleForm:logOut', args=()))
 
 
-def edit(request, username1):
+def edit(request, a_id):
     global uname
-    print(username1)
-    user = Account.objects.get(username=username1)
-    context = {
-        'user': user
-    }
-    return render(request, 'updateP.html', context)
+    print(a_id)
+    try:
+        user = Account.objects.get(aid=a_id)
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('SimpleForm:home', args=()))
+    else:
+        context = {
+            'i': user
+        }
+        return render(request, 'updateP.html', context)
+
+
+def delete(request, a_id):
+    global uname
+    Account.objects.get(aid=a_id).delete()
+    return HttpResponseRedirect(reverse('SimpleForm:home', args=()))
 
 
 # This module handles logging-out a user. Afterwards the user is redirected to the index screen.
