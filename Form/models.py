@@ -1,6 +1,5 @@
 # Create your models here.
 from django.db import models
-from datetime import date
 
 class Account(models.Model):
     aid = models.CharField(max_length=50, default='')
