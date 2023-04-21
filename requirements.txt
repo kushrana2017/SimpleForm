@@ -12,4 +12,4 @@ incremental==17.5.0
 PyHamcrest==2.0.2
 pymongo==3.10.1
 pytz==2020.1
-sqlparse==0.2.4
+sqlparse==0.4.4
